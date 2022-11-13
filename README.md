@@ -20,7 +20,7 @@ composer install
 DB_DATABASE=TEST_DATABASE
 ```
 
-- Run That Commands in terminal
+- Run these commands in terminal
 
 ```shell
 php artisan key:generate
