@@ -33,3 +33,13 @@ php artisan migrate
 ```shell
 php artisan db:seed
 ```
+
+```shell
+php artisan serve
+```
+
+- Your CRUD App url is 
+
+```shell
+http://127.0.0.1:8000
+```
