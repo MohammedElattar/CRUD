@@ -1,0 +1,20 @@
+[
+    {
+        "id": 0,
+        "name": "xiaomi mi9t",
+        "available": true,
+        "price": 5500
+    },
+    {
+        "id": 1,
+        "name": "nokia 111",
+        "available": true,
+        "price": 2000
+    },
+    {
+        "id": 2,
+        "name": "iphone 13",
+        "available": false,
+        "price": 25000
+    }
+]
