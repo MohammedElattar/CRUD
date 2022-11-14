@@ -19,6 +19,7 @@ const Container = styled.div`
 `;
 
 function AddProduct() {
+<<<<<<< HEAD
     const [nameProps, setNameProps] = useState({
         error: false,
         helperText: "",
@@ -30,9 +31,11 @@ function AddProduct() {
         value: "0",
     });
 
+=======
+>>>>>>> a1015f7271887320f02444927374e70f80876cbb
     const form = useRef();
-
     const checkValidation = () => {
+<<<<<<< HEAD
         let edit = false;
         if (!nameProps.value.trim()) {
             setNameProps((p) => ({
@@ -49,6 +52,10 @@ function AddProduct() {
                 helperText: "must have price greater than 0",
             }));
         }
+=======
+        // const name = nameRef.current.value;
+        // if ()
+>>>>>>> a1015f7271887320f02444927374e70f80876cbb
     };
 
     const handleSubmit = async (e) => {
@@ -57,21 +64,31 @@ function AddProduct() {
         if (checkValidation()) return;
 
         const formData = new FormData(form.current);
+        formData.append('_token' , document.querySelector("[name='csrf-token']").getAttribute("content"));
 
         const data = Object.fromEntries(formData.entries());
 
+<<<<<<< HEAD
         console.log(data);
         const request = await axios.post("/add", data);
         console.log(request);
+=======
+        // console.log(data);
+        const req = await axios.post("/add", data);
+        console.log(req)
+
+
+>>>>>>> a1015f7271887320f02444927374e70f80876cbb
     };
 
     return (
         <Container>
             <div className="container pt-5">
                 <form
-                    onSubmit={handleSubmit}
                     ref={form}
                     encType="multipart/form-data"
+
+                    onSubmit={handleSubmit}
                 >
                     <div className="row">
                         <div className="col-6 pe-2">

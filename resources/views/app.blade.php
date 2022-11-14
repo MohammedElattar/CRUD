@@ -11,7 +11,6 @@
         @viteReactRefresh
         @vite(['resources/js/main.jsx', 'resources/css/app.css'])
 
-
     </head>
     <body>
         <div id='root'></div>
