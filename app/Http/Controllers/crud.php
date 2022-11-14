@@ -12,6 +12,11 @@ class crud extends Controller
     {
         return view("app");
     }
+    public function get_products()
+    {
+        $modl = new crud_model();
+        echo $modl->all();
+    }
     public function add()
     {
         return view("app");
