@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
     form {
@@ -21,11 +22,28 @@ function AddProduct() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [available, setAvailable] = useState(true);
-    console.log(available);
+    const form = useRef();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form.current);
+        // formData.append()
+
+        const data = Object.fromEntries(formData.entries());
+
+        console.log(data);
+        // axios.post("/add", data);
+    };
+
     return (
         <Container>
             <div className="container pt-5">
-                <form>
+                <form
+                    onSubmit={handleSubmit}
+                    ref={form}
+                    encType="multipart/form-data"
+                >
                     <div className="row">
                         <div className="col-6 pe-2">
                             <TextField
@@ -38,6 +56,7 @@ function AddProduct() {
                                     inputMode: "numeric",
                                     pattern: "[0-9]*",
                                 }}
+                                name="price"
                                 className="w-100"
                             />
                         </div>
@@ -46,6 +65,7 @@ function AddProduct() {
                                 label="name"
                                 variant="outlined"
                                 value={name}
+                                name="name"
                                 onChange={(e) => setName(e.target.value)}
                                 className="w-100"
                             />
@@ -57,11 +77,15 @@ function AddProduct() {
                             <Checkbox
                                 defaultChecked
                                 onChange={(e) => setAvailable(e.target.checked)}
+                                name="available"
                             />
                         }
                         label="available"
                     />
-                    <Button variant="outlined">add</Button>
+                    <input type="file" name="image" />
+                    <Button variant="outlined" type="submit">
+                        add
+                    </Button>
                 </form>
             </div>
         </Container>

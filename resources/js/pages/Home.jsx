@@ -8,30 +8,26 @@ const Container = styled.div`
         width: 100%;
         thead {
             tr {
-                display: grid;
-                grid-template-columns: auto 1fr 1fr 1fr 1fr;
-                font-family: roboto, sans-serif;
-                padding: 5px;
                 td {
-                    text-align: center;
+                    font-weight: bold;
                 }
-                td:first-child {
-                    padding: 0px 20px;
-                }
+                padding-bottom: 30px;
+            }
+        }
+        tr {
+            display: grid;
+            grid-template-columns: auto repeat(7, 1fr);
+            font-family: roboto, sans-serif;
+            padding: 5px;
+            td {
+                text-align: center;
+            }
+            td:first-child {
+                padding: 0px 20px;
             }
         }
         tbody {
             tr {
-                display: grid;
-                grid-template-columns: auto 1fr 1fr 1fr 1fr;
-                font-family: roboto, sans-serif;
-                padding: 5px;
-                td {
-                    text-align: center;
-                }
-                td:first-child {
-                    padding: 0px 20px;
-                }
                 .available {
                     span {
                         width: 10px;
@@ -53,7 +49,7 @@ const Container = styled.div`
 function Home() {
     return (
         <Container>
-            <div className="container">
+            <div className="container pt-5">
                 <table>
                     <thead>
                         <tr>
@@ -61,6 +57,9 @@ function Home() {
                             <td>name</td>
                             <td>available</td>
                             <td>price</td>
+                            <td>quantity</td>
+                            <td>category</td>
+                            <td>image</td>
                             <td>other</td>
                         </tr>
                     </thead>
