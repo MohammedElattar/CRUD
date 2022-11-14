@@ -100,7 +100,8 @@ function AddProduct() {
         formData.append("category", categoryProps.value);
         formData.append("quantity", quantityProps.value);
         formData.append("available", available);
-        formData.append("image", files ? files[0] : null);
+        if(files)formData.append('image' , files[0]);
+
 
         const token = document
             .querySelector("[name='csrf-token']")
@@ -112,11 +113,17 @@ function AddProduct() {
         console.log("form data =>", data);
 
         try {
-            const req = await axios.post("/add", data);
-            console.log("request response", req);
+            // const req = await axios.post("/add", data);
+            const req = await axios({
+                method :"post" ,
+                url : '/add' ,
+                data : data,
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            console.log("request response", req['data']);
         } catch (error) {
             console.log(`An error occured`);
-            console.log(error);
+            console.log(error['response']['data']);
         } finally {
             setLoading(false);
         }
