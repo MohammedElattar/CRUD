@@ -21,7 +21,7 @@ function AddProduct() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [available, setAvailable] = useState(true);
-    console.log(available);
+
     return (
         <Container>
             <div className="container pt-5">
