@@ -10,7 +10,9 @@
 
         @viteReactRefresh
         @vite(['resources/js/main.jsx', 'resources/css/app.css'])
-
+        <form action="">
+            @csrf
+        </form>
     </head>
     <body>
         <div id='root'></div>
