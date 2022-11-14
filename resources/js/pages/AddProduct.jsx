@@ -108,10 +108,10 @@ function AddProduct() {
 
         try {
             const req = await axios.post("/add", data);
-            console.log("request response", req);
+            console.log("request response", req['data']);
         } catch (error) {
             console.log(`An error occured`);
-            console.error(error);
+            console.log(error['response']['data']['errors']);
         } finally {
             setLoading(false);
         }
