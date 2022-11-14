@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import React, { useState } from "react";
 import axios from "axios";
 
 const Container = styled.div`
@@ -29,55 +30,115 @@ function AddProduct() {
         helperText: "",
         value: "0",
     });
+    const [categoryProps, setCategoryProps] = useState({
+        error: false,
+        helperText: "",
+        value: "",
+    });
+    const [quantityProps, setQuantityProps] = useState({
+        error: false,
+        helperText: "",
+        value: "1",
+    });
+    const [available, setAvailable] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    const form = useRef();
     const checkValidation = () => {
         let edit = false;
         if (!nameProps.value.trim()) {
             setNameProps((p) => ({
                 ...p,
                 error: true,
-                helperText: "must have name",
+                helperText: "not valid name",
             }));
             edit = true;
         }
-        if (+priceProps.value <= 0 || isNaN(priceProps.value)) {
+        if (+priceProps.value <= 0 || isNaN(+priceProps.value)) {
             setPriceProps((p) => ({
                 ...p,
                 error: true,
-                helperText: "must have price greater than 0",
+                helperText: "not valid price",
             }));
+            edit = true;
         }
-        // const name = nameRef.current.value;
-        // if ()
+        if (!categoryProps.value.trim()) {
+            setCategoryProps((p) => ({
+                ...p,
+                error: true,
+                helperText: "not valid category",
+            }));
+            edit = true;
+        }
+        if (+quantityProps.value <= 0 || isNaN(+quantityProps.value)) {
+            setQuantityProps((p) => ({
+                ...p,
+                error: true,
+                helperText: "not valid quantity",
+            }));
+            edit = true;
+        }
+        if (edit) {
+            return true;
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
 
         if (checkValidation()) return;
+        setNameProps((p) => ({ ...p, error: false, helperText: "" }));
+        setCategoryProps((p) => ({ ...p, error: false, helperText: "" }));
+        setPriceProps((p) => ({ ...p, error: false, helperText: "" }));
+        setQuantityProps((p) => ({ ...p, error: false, helperText: "" }));
+        setLoading(true);
 
-        const formData = new FormData(form.current);
-        formData.append('_token' , document.querySelector("[name='csrf-token']").getAttribute("content"));
+        const formData = new FormData();
+        formData.append("name", nameProps.value);
+        formData.append("price", priceProps.value);
+        formData.append("category", categoryProps.value);
+        formData.append("quantity", quantityProps.value);
+        formData.append("available", quantityProps.value);
+        const token = document
+            .querySelector("[name='csrf-token']")
+            .getAttribute("content");
+        formData.append("_token", token);
 
         const data = Object.fromEntries(formData.entries());
 
-        console.log(data);
-        const request = await axios.post("/add", data);
-        console.log(request);
-
+        try {
+            const req = await axios.post("/add", data);
+            console.log("request response", req);
+        } catch (error) {
+            console.log(`An error occured`);
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <Container>
             <div className="container pt-5">
-                <form
-                    ref={form}
-                    encType="multipart/form-data"
-                    onSubmit={handleSubmit}
-                >
+                <form encType="multipart/form-data" onSubmit={handleSubmit}>
                     <div className="row">
-                        <div className="col-6 pe-2">
+                        <div className="col-6 pe-2 pb-4 p-0">
+                            <TextField
+                                label="name"
+                                variant="outlined"
+                                value={nameProps.value}
+                                onChange={(e) =>
+                                    setNameProps((p) => ({
+                                        ...p,
+                                        value: e.target.value,
+                                    }))
+                                }
+                                error={nameProps.error}
+                                helperText={nameProps.helperText}
+                                className="w-100"
+                            />
+                        </div>
+                        <div className="col-6 ps-2 pb-4 p-0">
                             <TextField
                                 type="number"
                                 label="price"
@@ -95,25 +156,40 @@ function AddProduct() {
                                 }}
                                 error={priceProps.error}
                                 helperText={priceProps.helperText}
-                                name="price"
                                 className="w-100"
-                                required
                             />
                         </div>
-                        <div className="col-6 pe-2">
+
+                        <div className="col-6 pe-2 pb-4 p-0">
                             <TextField
-                                label="name"
+                                label="category"
                                 variant="outlined"
-                                value={nameProps.value}
+                                value={categoryProps.value}
                                 onChange={(e) =>
-                                    setNameProps((p) => ({
+                                    setCategoryProps((p) => ({
                                         ...p,
                                         value: e.target.value,
                                     }))
                                 }
-                                error={nameProps.error}
-                                helperText={nameProps.helperText}
-                                name="name"
+                                error={categoryProps.error}
+                                helperText={categoryProps.helperText}
+                                className="w-100"
+                            />
+                        </div>
+                        <div className="col-6 ps-2 pb-4 p-0">
+                            <TextField
+                                type="number"
+                                label="quantity"
+                                variant="outlined"
+                                value={quantityProps.value}
+                                onChange={(e) =>
+                                    setQuantityProps((p) => ({
+                                        ...p,
+                                        value: e.target.value,
+                                    }))
+                                }
+                                error={quantityProps.error}
+                                helperText={quantityProps.helperText}
                                 className="w-100"
                             />
                         </div>
@@ -123,31 +199,28 @@ function AddProduct() {
                         control={
                             <Checkbox
                                 defaultChecked
-                                // onChange={(e) => setAvailable(e.target.checked)}
-                                name="available"
+                                onChange={(e) => setAvailable(e.target.checked)}
                             />
                         }
                         label="available"
                     />
-                    <div class="custom-file">
-                        <input
-                            type="file"
-                            class="custom-file-input"
-                            id="validatedCustomFile"
-                        />
-                        <label
-                            class="custom-file-label"
-                            for="validatedCustomFile"
-                        >
-                            Choose file...
+                    <div className="mb-3">
+                        <label htmlFor="formFile" className="form-label">
+                            product image (optional)
                         </label>
-                        <div class="invalid-feedback">
-                            Example invalid custom file feedback
-                        </div>
+                        <input
+                            className="form-control shadow-none"
+                            type="file"
+                            id="formFile"
+                        />
                     </div>
-                    <Button variant="outlined" type="submit">
+                    <LoadingButton
+                        variant="contained"
+                        loading={loading}
+                        type="submit"
+                    >
                         add
-                    </Button>
+                    </LoadingButton>
                 </form>
             </div>
         </Container>
