@@ -34,11 +34,7 @@ const Container = styled.div`
                         height: 10px;
                         border-radius: 50%;
                         display: block;
-                        background-color: red;
                         margin: 0 auto;
-                    }
-                    .true {
-                        background-color: green;
                     }
                 }
             }
