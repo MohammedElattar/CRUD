@@ -37,7 +37,7 @@ function AddProduct() {
 
         // console.log(data);
         const req = await axios.post("/add", data);
-        console.log(req)
+        console.log(req['data'])
 
 
     };

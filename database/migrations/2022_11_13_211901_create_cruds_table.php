@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('cruds', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->integer("price");
+            $table->boolean("available")->default(0);
             $table->timestamps();
         });
     }
