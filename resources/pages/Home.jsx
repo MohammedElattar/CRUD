@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import data from "../data.json";
 import TableRow from "../components/TableRow";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { actions } from "../redux/store";
 
 const Container = styled.div`
     table {
@@ -43,6 +46,26 @@ const Container = styled.div`
 `;
 
 function Home() {
+    const dispatch = useDispatch();
+    const { loading, error, products } = useSelector((state) => state);
+
+    const fetchProducts = async () => {
+        // dispatch(actions.fetchRequest());
+        // try {
+        //     const response = await axios.get("");
+        //     const data = respose.data();
+        //     dispatch(actions.fetchSuccess(data));
+        // } catch (error) {
+        //     dispatch(actions.fetchFail(error));
+        // }
+    };
+
+    console.log(loading, error, products);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
     return (
         <Container>
             <div className="container pt-5">
