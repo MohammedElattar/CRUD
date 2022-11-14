@@ -1,7 +1,8 @@
 import _ from "lodash";
 window._ = _;
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/scss/bootstrap.scss";
+// import "bootstrap/scss/_forms.scss";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

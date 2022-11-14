@@ -24,7 +24,7 @@ class crud extends Controller
     public function store(Request $req)
     {
         $data = $req->validate([
-            'name' => 'required|unique:users,name'
+            'name' => 'required'
         ]);
         // echo "this is test post";
     }
