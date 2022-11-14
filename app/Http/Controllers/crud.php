@@ -15,10 +15,17 @@ class crud extends Controller
         return view("app");
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $req
+     * @return void
+     */
     public function store(Request $req)
     {
         $data = $req->validate([
-            'name' => 'required'
+            'name' => 'required|unique:users,name'
         ]);
+        // echo "this is test post";
     }
 }

@@ -10,11 +10,9 @@
 
         @viteReactRefresh
         @vite(['resources/js/main.jsx', 'resources/css/app.css'])
-        <form action="">
-            @csrf
-        </form>
     </head>
     <body>
+        <input type="hidden" value="{{$errors}}" class="errors">
         <div id='root'></div>
     </body>
 </html>
