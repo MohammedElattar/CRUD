@@ -32,7 +32,7 @@ class crud extends Controller
     {
         $data = $req->validate(
             [
-                'name' => 'bail|required|unique:crud,name|regex:/[a-zA-Z]/i',
+                'name' => 'bail|required|unique:crud,name',
                 'category' => 'bail|required|regex:/[a-zA-Z]/i',
                 'price' => 'bail|required|min:1',
                 'quantity' => 'bail|required|min:1',
@@ -54,7 +54,7 @@ class crud extends Controller
             ]
         );
         if ($req->has("image")) {
-            $image_path = $req->file("image")->store("products");
+            $image_path = $req->file("image")->store("public/products");
         }
 
         $prod = new crud_model();
@@ -63,8 +63,10 @@ class crud extends Controller
         $prod->price = $data['price'];
         $prod->quantity = $data['quantity'];
         $prod->available = $data['available'] == true ? 1 : 0;
-        if ($req->has("image"))
-            $prod->avatar = $image_path;
+        if ($req->has("image")) {
+            $img = explode('/', $image_path);
+            $prod->avatar = "storage/$img[1]/$img[2]";
+        }
         $prod->save();
         http_response_code(200);
         echo json_encode(['status' => 200, 'Message' => 'Product Added Successfully']);
