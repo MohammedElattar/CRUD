@@ -14,4 +14,10 @@ class crud extends Controller
     {
         return view("app");
     }
+
+    public function store(Request $req)
+    {
+        echo '<pre>';
+        print_r($req->all());
+    }
 }

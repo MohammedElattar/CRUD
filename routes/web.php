@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get("/products", [crud::class, 'index'])->name('products');
+Route::get("/", [crud::class, 'index'])->name('products');
 Route::get("/products/add", [crud::class, 'add'])->name("add-product");
+Route::post('/products/add', [crud::class, 'store']);
