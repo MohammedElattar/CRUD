@@ -16,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get("/", [crud::class, 'index'])->name('products');
+<<<<<<< HEAD
+Route::get("/add", [crud::class, 'index'])->name('products');
+// Route::get("/products/add", [crud::class, 'add'])->name("add-product");
+Route::post('/add', [crud::class, 'store']);
+=======
 Route::get('/add', [crud::class, 'add']);
 Route::post("/add", [crud::class, 'store']);
+>>>>>>> a1015f7271887320f02444927374e70f80876cbb
