@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
+import Links from "./Links.json";
 
 function App() {
     return (
@@ -10,8 +11,8 @@ function App() {
             <Navbar />
             <main>
                 <Routes>
-                    <Route path="/crud/products" element={<Home />} />
-                    <Route path="/crud/products/add" element={<AddProduct />} />
+                    <Route path={Links.home} element={<Home />} />
+                    <Route path={Links.addProduct} element={<AddProduct />} />
                 </Routes>
             </main>
         </>

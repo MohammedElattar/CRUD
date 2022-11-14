@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "push": "git add . && git commit -m \"Commit\" && git push origin master"
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",

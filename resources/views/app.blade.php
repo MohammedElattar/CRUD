@@ -6,8 +6,11 @@
         <meta name="csrf-token" content="{{csrf_token()}}">
         <title></title>
 
+        <title>CRUD</title>
+
         @viteReactRefresh
         @vite(['resources/js/main.jsx', 'resources/css/app.css'])
+
 
     </head>
     <body>

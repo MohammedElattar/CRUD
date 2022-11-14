@@ -3,7 +3,6 @@ import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const Container = styled.div`
-    padding: 50px 200px;
     form {
         display: flex;
         flex-direction: column;
@@ -11,7 +10,6 @@ const Container = styled.div`
         .input-group {
             gap: 20px;
             display: flex;
-            /* justify-content: stretch; */
             .input {
                 flex: 1;
             }
@@ -26,37 +24,46 @@ function AddProduct() {
     console.log(available);
     return (
         <Container>
-            <form>
-                <div className="input-group">
-                    <TextField
-                        label="name"
-                        variant="outlined"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="input"
-                    />
-                    <TextField
-                        type="number"
-                        label="price"
-                        variant="outlined"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                        className="input"
-                    />
-                </div>
+            <div className="container pt-5">
+                <form>
+                    <div className="row">
+                        <div className="col-6 pe-2">
+                            <TextField
+                                type="number"
+                                label="price"
+                                variant="outlined"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                inputProps={{
+                                    inputMode: "numeric",
+                                    pattern: "[0-9]*",
+                                }}
+                                className="w-100"
+                            />
+                        </div>
+                        <div className="col-6 pe-2">
+                            <TextField
+                                label="name"
+                                variant="outlined"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-100"
+                            />
+                        </div>
+                    </div>
 
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            defaultChecked
-                            onChange={(e) => setAvailable(e.target.checked)}
-                        />
-                    }
-                    label="available"
-                />
-                <Button variant="outlined">add</Button>
-            </form>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                defaultChecked
+                                onChange={(e) => setAvailable(e.target.checked)}
+                            />
+                        }
+                        label="available"
+                    />
+                    <Button variant="outlined">add</Button>
+                </form>
+            </div>
         </Container>
     );
 }

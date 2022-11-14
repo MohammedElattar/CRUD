@@ -4,7 +4,6 @@ import data from "../data.json";
 import TableRow from "../components/TableRow";
 
 const Container = styled.div`
-    padding: 50px 200px;
     table {
         width: 100%;
         thead {
@@ -54,22 +53,24 @@ const Container = styled.div`
 function Home() {
     return (
         <Container>
-            <table>
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>name</td>
-                        <td>available</td>
-                        <td>price</td>
-                        <td>other</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((product) => (
-                        <TableRow key={product.id} {...product} />
-                    ))}
-                </tbody>
-            </table>
+            <div className="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>name</td>
+                            <td>available</td>
+                            <td>price</td>
+                            <td>other</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((product) => (
+                            <TableRow key={product.id} {...product} />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </Container>
     );
 }
