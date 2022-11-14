@@ -71,4 +71,11 @@ class crud extends Controller
         http_response_code(200);
         echo json_encode(['status' => 200, 'Message' => 'Product Added Successfully']);
     }
+
+    public function edit(){
+        return view("app");
+    }
+    public function udpate(Request $req){
+        echo "This is update page";
+    }
 }

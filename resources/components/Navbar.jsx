@@ -12,15 +12,17 @@ const Container = styled.div`
     }
     button {
         border-right: 1px solid #ccc;
-        padding: 0 20px;
-        display: flex;
-        align-items: center;
         text-transform: capitalize;
         text-decoration: none;
         border-radius: 0;
+        padding: 0;
         a {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
             text-decoration: none;
             color: #000;
+            height: 100%;
         }
     }
 `;
@@ -34,12 +36,6 @@ function Navbar() {
                 </Button>
                 <Button variant="outline">
                     <Link to={Links.addProduct}>add product</Link>
-                </Button>
-                <Button variant="outline">
-                    <Link to="/delete">delete product</Link>
-                </Button>
-                <Button variant="outline">
-                    <Link to="/edit">edit product</Link>
                 </Button>
             </div>
         </Container>

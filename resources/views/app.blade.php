@@ -12,7 +12,6 @@
         @vite(['resources/main.jsx', 'resources/app.css'])
     </head>
     <body>
-        <input type="hidden" value="{{$errors}}" class="errors">
         <div id='root'></div>
     </body>
 </html>

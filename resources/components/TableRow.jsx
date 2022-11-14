@@ -5,7 +5,8 @@ import { IconButton, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function TableRow({ id, name, available, price, quantity, image, category }) {
+function TableRow({ id, name, available, price, quantity, avatar, category }) {
+    console.log(avatar);
     return (
         <tr>
             <td>{id}</td>
@@ -16,7 +17,7 @@ function TableRow({ id, name, available, price, quantity, image, category }) {
             <td>{price}$</td>
             <td>{category}</td>
             <td>
-                <img src={image} alt={name} />
+                <img className="img-fluid" src={avatar} alt={name} />
             </td>
             <td>{quantity}</td>
 
@@ -26,9 +27,11 @@ function TableRow({ id, name, available, price, quantity, image, category }) {
                         <DeleteIcon />
                     </IconButton>
                 </Link>
-                <IconButton>
-                    <ModeEditIcon />
-                </IconButton>
+                <Link to={`/edit/${id}`}>
+                    <IconButton>
+                        <ModeEditIcon />
+                    </IconButton>
+                </Link>
             </td>
         </tr>
     );
