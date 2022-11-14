@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\crud;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
-Route::get('/add', function () {
-    return view('app');
-});
+
+Route::get("/products", [crud::class, 'index'])->name('products');
+Route::get("/products/add", [crud::class, 'add'])->name("add-product");
