@@ -103,18 +103,23 @@ function AddProduct() {
             category: categoryProps.value,
             quantity: quantityProps.value,
             available,
-            image: files ? files[0] : null,
             _token: token,
         };
+        if (files) data.image = files[0];
 
         console.log("form data =>", data);
 
         try {
-            const req = await axios.post("/add", data);
-            console.log("request response", req);
+            const req = await axios({
+                method: "post",
+                url: "/add",
+                data: data,
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            console.log("request response", req["data"]);
         } catch (error) {
             console.log(`An error occured`);
-            console.log(error);
+            console.log(error["response"]["data"]);
         } finally {
             setLoading(false);
         }
