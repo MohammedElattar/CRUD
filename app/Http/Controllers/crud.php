@@ -18,6 +18,7 @@ class crud extends Controller
     public function store(Request $req)
     {
         echo '<pre>';
+        echo "Your Data are ";
         print_r($req->all());
     }
 }
