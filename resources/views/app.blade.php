@@ -9,7 +9,7 @@
         <title>CRUD</title>
 
         @viteReactRefresh
-        @vite(['resources/js/main.jsx', 'resources/css/app.css'])
+        @vite(['resources/main.jsx', 'resources/app.css'])
     </head>
     <body>
         <input type="hidden" value="{{$errors}}" class="errors">

@@ -27,6 +27,7 @@
         "@mui/material": "^5.10.13",
         "@mui/styled-engine-sc": "^5.10.6",
         "react-router-dom": "^6.4.3",
-        "styled-components": "^5.3.6"
+        "styled-components": "^5.3.6",
+        "sweetalert2": "^11.6.8"
     }
 }

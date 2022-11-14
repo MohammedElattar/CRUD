@@ -42,6 +42,7 @@ function AddProduct() {
     });
     const [available, setAvailable] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [files, setFiles] = useState(null);
 
     const checkValidation = () => {
         let edit = false;
@@ -98,7 +99,9 @@ function AddProduct() {
         formData.append("price", priceProps.value);
         formData.append("category", categoryProps.value);
         formData.append("quantity", quantityProps.value);
-        formData.append("available", quantityProps.value);
+        formData.append("available", available);
+        formData.append("image", files ? files[0] : null);
+
         const token = document
             .querySelector("[name='csrf-token']")
             .getAttribute("content");
@@ -106,12 +109,14 @@ function AddProduct() {
 
         const data = Object.fromEntries(formData.entries());
 
+        console.log("form data =>", data);
+
         try {
             const req = await axios.post("/add", data);
-            console.log("request response", req['data']);
+            console.log("request response", req);
         } catch (error) {
             console.log(`An error occured`);
-            console.log(error['response']['data']['errors']);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -212,6 +217,7 @@ function AddProduct() {
                             className="form-control shadow-none"
                             type="file"
                             id="formFile"
+                            onChange={(e) => setFiles(e.target.files)}
                         />
                     </div>
                     <LoadingButton
