@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 
 const Container = styled.div`
@@ -19,16 +19,22 @@ const Container = styled.div`
 `;
 
 function AddProduct() {
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [available, setAvailable] = useState(true);
+    const priceRef = useRef();
+    const nameRef = useRef();
+
     const form = useRef();
+
+    const checkValidation = () => {
+        const name = nameRef.current.value;
+        // if ()
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        checkValidation();
+
         const formData = new FormData(form.current);
-        // formData.append()
 
         const data = Object.fromEntries(formData.entries());
 
@@ -50,8 +56,8 @@ function AddProduct() {
                                 type="number"
                                 label="price"
                                 variant="outlined"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
+                                // value={price}
+                                // onChange={(e) => setPrice(e.target.value)}
                                 inputProps={{
                                     inputMode: "numeric",
                                     pattern: "[0-9]*",
@@ -64,9 +70,9 @@ function AddProduct() {
                             <TextField
                                 label="name"
                                 variant="outlined"
-                                value={name}
+                                // value={name}
+                                // onChange={(e) => setName(e.target.value)}
                                 name="name"
-                                onChange={(e) => setName(e.target.value)}
                                 className="w-100"
                             />
                         </div>
@@ -76,7 +82,7 @@ function AddProduct() {
                         control={
                             <Checkbox
                                 defaultChecked
-                                onChange={(e) => setAvailable(e.target.checked)}
+                                // onChange={(e) => setAvailable(e.target.checked)}
                                 name="available"
                             />
                         }
