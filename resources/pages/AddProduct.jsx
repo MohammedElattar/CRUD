@@ -42,7 +42,7 @@ function AddProduct() {
     });
     const [available, setAvailable] = useState(true);
     const [loading, setLoading] = useState(false);
-    const [files, setFiles] = useState(null);
+    const [files, setFiles] = useState([]);
 
     const checkValidation = () => {
         let edit = false;
@@ -94,20 +94,18 @@ function AddProduct() {
         setQuantityProps((p) => ({ ...p, error: false, helperText: "" }));
         setLoading(true);
 
-        const formData = new FormData();
-        formData.append("name", nameProps.value);
-        formData.append("price", priceProps.value);
-        formData.append("category", categoryProps.value);
-        formData.append("quantity", quantityProps.value);
-        formData.append("available", available);
-        formData.append("image", files ? files[0] : null);
-
         const token = document
             .querySelector("[name='csrf-token']")
             .getAttribute("content");
-        formData.append("_token", token);
-
-        const data = Object.fromEntries(formData.entries());
+        const data = {
+            name: nameProps.value,
+            price: priceProps.value,
+            category: categoryProps.value,
+            quantity: quantityProps.value,
+            available,
+            image: files ? files[0] : null,
+            _token: token,
+        };
 
         console.log("form data =>", data);
 
