@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 
 const Container = styled.div`
@@ -19,27 +19,50 @@ const Container = styled.div`
 `;
 
 function AddProduct() {
-    const priceRef = useRef();
-    const nameRef = useRef();
+    const [nameProps, setNameProps] = useState({
+        error: false,
+        helperText: "",
+        value: "",
+    });
+    const [priceProps, setPriceProps] = useState({
+        error: false,
+        helperText: "",
+        value: "0",
+    });
 
     const form = useRef();
 
     const checkValidation = () => {
-        const name = nameRef.current.value;
-        // if ()
+        let edit = false;
+        if (!nameProps.value.trim()) {
+            setNameProps((p) => ({
+                ...p,
+                error: true,
+                helperText: "must have name",
+            }));
+            edit = true;
+        }
+        if (+priceProps.value <= 0 || isNaN(priceProps.value)) {
+            setPriceProps((p) => ({
+                ...p,
+                error: true,
+                helperText: "must have price greater than 0",
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        checkValidation();
+        if (checkValidation()) return;
 
         const formData = new FormData(form.current);
 
         const data = Object.fromEntries(formData.entries());
 
         console.log(data);
-        // axios.post("/add", data);
+        const request = await axios.post("/add", data);
+        console.log(request);
     };
 
     return (
@@ -56,12 +79,19 @@ function AddProduct() {
                                 type="number"
                                 label="price"
                                 variant="outlined"
-                                // value={price}
-                                // onChange={(e) => setPrice(e.target.value)}
+                                value={priceProps.value}
+                                onChange={(e) =>
+                                    setPriceProps((p) => ({
+                                        ...p,
+                                        value: e.target.value,
+                                    }))
+                                }
                                 inputProps={{
                                     inputMode: "numeric",
                                     pattern: "[0-9]*",
                                 }}
+                                error={priceProps.error}
+                                helperText={priceProps.helperText}
                                 name="price"
                                 className="w-100"
                             />
@@ -70,8 +100,15 @@ function AddProduct() {
                             <TextField
                                 label="name"
                                 variant="outlined"
-                                // value={name}
-                                // onChange={(e) => setName(e.target.value)}
+                                value={nameProps.value}
+                                onChange={(e) =>
+                                    setNameProps((p) => ({
+                                        ...p,
+                                        value: e.target.value,
+                                    }))
+                                }
+                                error={nameProps.error}
+                                helperText={nameProps.helperText}
                                 name="name"
                                 className="w-100"
                             />
@@ -88,7 +125,23 @@ function AddProduct() {
                         }
                         label="available"
                     />
-                    <input type="file" name="image" />
+                    <div class="custom-file">
+                        <input
+                            type="file"
+                            class="custom-file-input"
+                            id="validatedCustomFile"
+                            required
+                        />
+                        <label
+                            class="custom-file-label"
+                            for="validatedCustomFile"
+                        >
+                            Choose file...
+                        </label>
+                        <div class="invalid-feedback">
+                            Example invalid custom file feedback
+                        </div>
+                    </div>
                     <Button variant="outlined" type="submit">
                         add
                     </Button>
