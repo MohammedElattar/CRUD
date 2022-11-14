@@ -25,7 +25,6 @@ class crud extends Controller
      */
     public function store(Request $req)
     {
-
         $data = $req->validate(
             [
                 'name' => 'bail|required|unique:crud,name|regex:/[a-zA-Z]/i',
@@ -49,8 +48,9 @@ class crud extends Controller
                 'image.image' => 'image-valid'
             ]
         );
-        if ($req->has("image"))
+        if ($req->has("image")) {
             $image_path = $req->file("image")->store("products");
+        }
 
         $prod = new crud_model();
         $prod->name = $data['name'];
@@ -58,7 +58,8 @@ class crud extends Controller
         $prod->price = $data['price'];
         $prod->quantity = $data['quantity'];
         $prod->available = $data['available'] == true ? 1 : 0;
-        $prod->avatar = $image_path;
+        if ($req->has("image"))
+            $prod->avatar = $image_path;
         $prod->save();
         http_response_code(200);
         echo json_encode(['status' => 200, 'Message' => 'Product Added Successfully']);
