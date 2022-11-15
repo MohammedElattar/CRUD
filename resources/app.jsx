@@ -11,13 +11,16 @@ import { actions } from "./redux/store";
 
 function App() {
     const dispatch = useDispatch();
-    const { loading, error, products } = useSelector((state) => state);
+    const { loading, error } = useSelector((state) => state);
 
-    const fetchProducts = async () => {
-        dispatch(actions.fetchRequest());
+    const fetchProducts = async (setLoading = true) => {
+        if (setLoading) {
+            dispatch(actions.fetchRequest());
+        }
         try {
             const response = await axios.get("/get_products");
             const data = response.data;
+            console.log("data fetched =>", data);
             dispatch(actions.fetchSuccess(data));
         } catch (error) {
             dispatch(actions.fetchFail(error));
@@ -39,13 +42,24 @@ function App() {
         );
     }
 
+    if (error) {
+        return (
+            <Container>
+                <div className="error">{error}</div>
+            </Container>
+        );
+    }
+
     return (
         <>
             <Navbar />
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/add" element={<AddProduct />} />
+                    <Route
+                        path="/add"
+                        element={<AddProduct fetch={fetchProducts} />}
+                    />
                     <Route
                         path="/delete/:productId"
                         element={<DeleteProduct />}

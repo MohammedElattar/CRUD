@@ -19,7 +19,7 @@ const Container = styled.div`
     }
 `;
 
-function AddProduct() {
+function AddProduct({ fetch }) {
     const [nameProps, setNameProps] = useState({
         error: false,
         helperText: "",
@@ -116,6 +116,7 @@ function AddProduct() {
                 data: data,
                 headers: { "Content-Type": "multipart/form-data" },
             });
+            fetch(false);
             console.log("request response", req["data"]);
         } catch (error) {
             console.log(`An error occured`);

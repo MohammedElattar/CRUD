@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import TableRow from "../components/TableRow";
 import { useSelector } from "react-redux";
 
@@ -43,22 +43,7 @@ const Container = styled.div`
 `;
 
 function Home() {
-    const { loading, error, products } = useSelector((state) => state);
-
-    if (loading) {
-        return (
-            <Container>
-                <div className="loading">Loading...</div>
-            </Container>
-        );
-    }
-    if (error) {
-        return (
-            <Container>
-                <div className="error">{error}</div>
-            </Container>
-        );
-    }
+    const { products } = useSelector((state) => state);
 
     return (
         <Container>
